@@ -17,11 +17,14 @@ def get_user_choice():
             return 'city'
         else:
             print("Invalid choice. Please enter '1' or '2'.")
+            print("Error: 0x0001")
 
 def get_city_coordinates():
     city = input("Enter the city name: ")
     # You might want to add error handling and validation for the city input
-    return city
+    print("City input is currently not implemented.")
+    print("CWA will now quit")
+    exit()
 
 def get_current_location_coordinates():
     location = geocoder.ip("me")
@@ -29,6 +32,7 @@ def get_current_location_coordinates():
         return tuple(location.latlng)
     else:
         print("Unable to determine current location.")
+        print("Error: 0x0002")
         return None
 
 def main():
