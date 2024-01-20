@@ -1,5 +1,6 @@
 # main_curses_resizable.py
 
+
 import curses
 from api_handler import get_weather
 import geocoder
@@ -18,16 +19,19 @@ class ConsoleWeatherApp:
     def get_screen_size(self):
         time.sleep(0.1)  # prevents curses.error on rapid resizing
         while True:
-            self.screen.clear()  # Clear the screen before refreshing
-            self.screen.refresh()
-            self.height, self.width = self.screen.getmaxyx()
-            # Tracker list breaks if width smaller than 73
-            if self.width < 73 or self.height < 16:
-                self.screen.erase()
-                self.screen.addstr(0, 0, "Terminal too small", curses.A_REVERSE + curses.A_BOLD)
-                time.sleep(1)
-            else:
-                break
+            try:
+                self.screen.clear()  # Clear the screen before refreshing
+                self.screen.refresh()
+                self.height, self.width = self.screen.getmaxyx()
+                # Tracker list breaks if width smaller than 73
+                if self.width < 73 or self.height < 16:
+                    self.screen.erase()
+                    self.screen.addstr(0, 0, "Terminal too small", curses.A_REVERSE + curses.A_BOLD)
+                    time.sleep(1)
+                else:
+                    break
+            except curses.error as e:
+                print(f"Terminal error: {e}")
         self.manage_layout()
 
     def center_text(self, text, row):
@@ -40,6 +44,7 @@ class ConsoleWeatherApp:
         self.center_text("Choose an option:", 5)
         self.center_text("1. Automatic GPS Location", 6)
         self.center_text("2. City Select", 7)
+        self.center_text("3. Important Information", 8)
 
         while True:
             choice = self.screen.getch()
@@ -48,13 +53,24 @@ class ConsoleWeatherApp:
                 return 'auto'
             elif choice == ord('2'):
                 return 'city'
+            elif choice == ord('3'):
+                return 'info'
+            elif choice == 10:  # Enter key
+                return 'enter'
             elif choice == curses.KEY_RESIZE:
                 self.get_screen_size()
             else:
                 os.system("clear")
-                self.center_text("Invalid choice. Please enter '1' or '2.'", 9)
+                self.center_text("Invalid choice. Please enter '1', '2', '3', or press Enter.", 9)
                 self.center_text("Error: 0x0001", 10)
                 self.screen.refresh()
+
+    def display_info_screen(self):
+        self.screen.clear()
+        self.center_text("Important Information", 2)
+        self.center_text("This is some important information you want to display.", 4)
+        self.center_text("Press Enter to Return", 6)
+        self.screen.refresh()
 
     def get_city_coordinates(self):
         self.center_text("Enter the city name:", 12)
