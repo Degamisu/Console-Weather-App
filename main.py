@@ -1,5 +1,6 @@
-# main.py
+# main_curses_resizable.py
 
+import curses
 from api_handler import get_weather
 import geocoder
 import os
@@ -8,121 +9,160 @@ import time
 # Setup process ID variable
 pid = os.getpid()
 
-os.system('clear')
+class ConsoleWeatherApp:
+    def __init__(self, stdscr):
+        self.screen = stdscr
+        self.height, self.width = self.screen.getmaxyx()
+        curses.curs_set(0)  # Hide the cursor
+        self.get_screen_size()
 
-print("Welcome to Console Weather App".center(40))
-print("© Degamisu 2024 | All Rights Reserved | Emi Yamashita".center(40))
-print()
+    def get_screen_size(self):
+        time.sleep(0.1)  # prevents curses.error on rapid resizing
+        while True:
+            curses.endwin()
+            self.screen.refresh()
+            self.height, self.width = self.screen.getmaxyx()
+            # Tracker list breaks if width smaller than 73
+            if self.width < 73 or self.height < 16:
+                self.screen.erase()
+                self.screen.addstr(0, 0, "Terminal too small", curses.A_REVERSE + curses.A_BOLD)
+                time.sleep(1)
+            else:
+                break
+        self.manage_layout()
 
-def get_user_choice():
-    print("Choose an option:".center(40))
-    print("1. Automatic GPS Location".center(40))
-    print("2. City Select".center(40))
-    
-    while True:
-        choice = input("Enter the number of your choice: ".center(40))
-        
-        if choice == '1':
-            return 'auto'
-        elif choice == '2':
-            return 'city'
+    def center_text(self, text, row):
+        self.screen.addstr(row, (self.width - len(text)) // 2, text)
+
+    def get_user_choice(self):
+        self.screen.clear()
+        self.center_text("Welcome to Console Weather App", 2)
+        self.center_text("© Degamisu 2024 | All Rights Reserved | Emi Yamashita", 3)
+        self.center_text("Choose an option:", 5)
+        self.center_text("1. Automatic GPS Location", 6)
+        self.center_text("2. City Select", 7)
+
+        while True:
+            choice = self.screen.getch()
+
+            if choice == ord('1'):
+                return 'auto'
+            elif choice == ord('2'):
+                return 'city'
+            else:
+                self.center_text("Invalid choice. Please enter '1' or '2.'", 9)
+                self.center_text("Error: 0x0001", 10)
+                self.screen.refresh()
+
+    def get_city_coordinates(self):
+        self.center_text("Enter the city name:", 12)
+        city = self.screen.getstr(13, (self.width - len("")) // 2).decode('utf-8')
+
+        # You might want to add error handling and validation for the city input
+        self.center_text("City input is currently not implemented.", 14)
+        self.center_text("CWA will now quit", 15)
+        self.screen.refresh()
+        self.screen.getch()
+        exit()
+
+    def get_current_location_coordinates(self):
+        location = geocoder.ip("me")
+        if location and location.latlng:
+            return tuple(location.latlng)
         else:
+            print("Unable to determine current location.")
+            print("Error: 0x0002")
+            print("CWA will now quit")
+            time.sleep(3)
             os.system('clear')
-            print("Invalid choice. Please enter '1' or '2.'".center(40))
-            print("Error: 0x0001".center(40))
-            print()
-            input("Press enter to exit: ")
-            os.system('clear')
-            exit()
+            return None
 
+    def display_hourly_weather(self, times, temperatures, relative_humidity, wind_speeds):
+        max_rows, _ = self.screen.getmaxyx()
+        rows_to_display = min(max_rows - 18, len(times) * 5)
 
-def get_city_coordinates():
-    city = input("Enter the city name: ")
-    # You might want to add error handling and validation for the city input
-    print("City input is currently not implemented.")
-    print("CWA will now quit")
-    time.sleep(3)
-    os.system('clear')
-    exit()
+        for i, time_data in enumerate(zip(times, temperatures, relative_humidity, wind_speeds), start=18):
+            if i + 4 > 18 + rows_to_display:
+                break
 
-def get_current_location_coordinates():
-    location = geocoder.ip("me")
-    if location and location.latlng:
-        return tuple(location.latlng)
-    else:
-        print("Unable to determine current location.")
-        print("Error: 0x0002")
-        return None
+            self.center_text(f"Time: {time_data[0]}", i)
+            self.center_text(f"Temperature at 2m: {time_data[1]}°C", i + 1)
+            self.center_text(f"Relative Humidity at 2m: {time_data[2]}%", i + 2)
+            self.center_text(f"Wind Speed at 10m: {time_data[3]} m/s", i + 3)
+            self.center_text("---", i + 4)
 
-def display_hourly_weather(times, temperatures, relative_humidity, wind_speeds):
-    for i in reversed(range(len(times))):
-        print(f"Time: {times[i]}")
-        print(f"Temperature at 2m: {temperatures[i]}°C")
-        print(f"Relative Humidity at 2m: {relative_humidity[i]}%")
-        print(f"Wind Speed at 10m: {wind_speeds[i]} m/s")
-        print("\n---")
+        self.screen.refresh()
 
-def main():
-    choice = get_user_choice()
+    def manage_layout(self):
+        # Implement layout management logic here if needed
+        pass
 
-    if choice == 'auto':
-        coordinates = get_current_location_coordinates()
+    def main(self):
+        choice = self.get_user_choice()
 
-        if coordinates:
-            latitude, longitude = coordinates
+        if choice == 'auto':
+            coordinates = self.get_current_location_coordinates()
+
+            if coordinates:
+                latitude, longitude = coordinates
+            else:
+                self.center_text("Exiting program.", 30)
+                self.screen.refresh()
+                self.screen.getch()
+                return
+        elif choice == 'city':
+            self.get_city_coordinates()
+            # Implement code to get coordinates for the specified city
+            # For simplicity, let's assume fixed coordinates for now
+            latitude, longitude = 40.7128, -74.0060
         else:
-            print("Exiting program.")
+            self.center_text("Invalid choice. Exiting program.", 30)
+            self.screen.refresh()
+            self.screen.getch()
             return
-    elif choice == 'city':
-        city = get_city_coordinates()
-        # Implement code to get coordinates for the specified city
-        # For simplicity, let's assume fixed coordinates for now
-        latitude, longitude = 40.7128, -74.0060
-    else:
-        print("Invalid choice. Exiting program.")
-        return
 
-    weather_data = get_weather(latitude, longitude)
+        weather_data = get_weather(latitude, longitude)
 
-    if weather_data:
-        # Display the current weather data
-        print("Current Weather:")
-        print(f"Time: {weather_data['current']['time']}")
-        print(f"Temperature at 2m: {weather_data['current']['temperature_2m']}°C")
-        print(f"Wind Speed at 10m: {weather_data['current']['wind_speed_10m']} m/s")
+        if weather_data:
+            # Display the current weather data
+            self.center_text("Current Weather:", 17)
+            self.center_text(f"Time: {weather_data['current']['time']}", 18)
+            self.center_text(f"Temperature at 2m: {weather_data['current']['temperature_2m']}°C", 19)
+            self.center_text(f"Wind Speed at 10m: {weather_data['current']['wind_speed_10m']} m/s", 20)
 
-        # Display hourly weather data for the last hour
-        print("\nWeather in the Last Hour:")
-        display_hourly_weather(
-            weather_data['hourly']['time'][:1],
-            weather_data['hourly']['temperature_2m'][:1],
-            weather_data['hourly']['relative_humidity_2m'][:1],
-            weather_data['hourly']['wind_speed_10m'][:1]
-        )
-        
-        inp = input("Continue to display more Weather Data? | y/n: ")
-        
-        if inp.lower() == 'y':
-            times = weather_data['hourly']['time']
-            temperatures = weather_data['hourly']['temperature_2m']
-            relative_humidity = weather_data['hourly']['relative_humidity_2m']
-            wind_speeds = weather_data['hourly']['wind_speed_10m']
-            print(f"Time: {weather_data['hourly']['time']}")
-            print(f"Temperature at 2m: {weather_data['hourly']['temperature_2m']}°C")
-            print(f"Wind Speed at 10m: {weather_data['hourly']['wind_speed_10m']} m/s")
+            # Display hourly weather data for the last hour
+            self.center_text("Weather in the Last Hour:", 22)
+            self.display_hourly_weather(
+                weather_data['hourly']['time'][:1],
+                weather_data['hourly']['temperature_2m'][:1],
+                weather_data['hourly']['relative_humidity_2m'][:1],
+                weather_data['hourly']['wind_speed_10m'][:1]
+            )
 
-            for i in reversed(range(len(times))):
-                print(f"Time: {times[i]}")
-                print(f"Temperature at 2m: {temperatures[i]}°C")
-                print(f"Relative Humidity at 2m: {relative_humidity[i]}%")
-                print(f"Wind Speed at 10m: {wind_speeds[i]} m/s")
-                print("\n---")
-            
+            self.center_text("Continue to display more Weather Data? | y/n:", 30)
+            inp = self.screen.getch()
 
-        if inp.lower() == 'n':
-            print("Exiting process", pid)
-    else:
-        print("Unable to fetch weather data.")
+            if inp == ord('y'):
+                self.center_text("Fetching more weather data...", 32)
+                self.screen.refresh()
+                # Implement logic for fetching more weather data if needed
+                # For now, let's assume there's more data to display
+                self.display_hourly_weather(
+                    weather_data['hourly']['time'],
+                    weather_data['hourly']['temperature_2m'],
+                    weather_data['hourly']['relative_humidity_2m'],
+                    weather_data['hourly']['wind_speed_10m']
+                )
+
+            self.center_text(f"Exiting process {pid}", 34)
+            self.screen.refresh()
+            self.screen.getch()
+        else:
+            self.center_text("Unable to fetch weather data.", 30)
+            self.screen.refresh()
+            self.screen.getch()
 
 if __name__ == "__main__":
-    main()
+    ConsoleWeatherApp().__init__()
+
+
