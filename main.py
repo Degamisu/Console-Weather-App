@@ -3,37 +3,46 @@
 from api_handler import get_weather
 import geocoder
 import os
+import time
 
 # Setup process ID variable
 pid = os.getpid()
 
 os.system('clear')
 
-print("Welcome to Console Weather App")
-print("© Degamisu 2024 | All Rights Reserved | Emi Yamashita")
+print("Welcome to Console Weather App".center(40))
+print("© Degamisu 2024 | All Rights Reserved | Emi Yamashita".center(40))
 print()
 
 def get_user_choice():
-    print("Choose an option:")
-    print("1. Automatic GPS Location")
-    print("2. City Select")
+    print("Choose an option:".center(40))
+    print("1. Automatic GPS Location".center(40))
+    print("2. City Select".center(40))
     
     while True:
-        choice = input("Enter the number of your choice: ")
+        choice = input("Enter the number of your choice: ".center(40))
         
         if choice == '1':
             return 'auto'
         elif choice == '2':
             return 'city'
         else:
-            print("Invalid choice. Please enter '1' or '2'.")
-            print("Error: 0x0001")
+            os.system('clear')
+            print("Invalid choice. Please enter '1' or '2.'".center(40))
+            print("Error: 0x0001".center(40))
+            print()
+            input("Press enter to exit: ")
+            os.system('clear')
+            exit()
+
 
 def get_city_coordinates():
     city = input("Enter the city name: ")
     # You might want to add error handling and validation for the city input
     print("City input is currently not implemented.")
     print("CWA will now quit")
+    time.sleep(3)
+    os.system('clear')
     exit()
 
 def get_current_location_coordinates():
