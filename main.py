@@ -10,11 +10,10 @@ import time
 pid = os.getpid()
 
 class ConsoleWeatherApp:
-    def __init__(self, stdscr):
-        self.screen = stdscr
-        self.height, self.width = self.screen.getmaxyx()
-        curses.curs_set(0)  # Hide the cursor
-        self.get_screen_size()
+    def __init__(self):
+        self.height = 0
+        self.width = 0
+        self.screen = None
 
     def get_screen_size(self):
         time.sleep(0.1)  # prevents curses.error on rapid resizing
@@ -163,6 +162,4 @@ class ConsoleWeatherApp:
             self.screen.getch()
 
 if __name__ == "__main__":
-    ConsoleWeatherApp().__init__()
-
-
+    curses.wrapper()
