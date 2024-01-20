@@ -7,6 +7,12 @@ import os
 # Setup process ID variable
 pid = os.getpid()
 
+os.system('clear')
+
+print("Welcome to Console Weather App")
+print("© Degamisu 2024 | All Rights Reserved | Emi Yamashita")
+print()
+
 def get_user_choice():
     print("Choose an option:")
     print("1. Automatic GPS Location")

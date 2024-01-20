@@ -1,6 +1,8 @@
 # api_handler.py
 
 import requests
+import os
+import time
 
 def get_weather(latitude, longitude):
     base_url = "https://api.open-meteo.com/v1/forecast"
@@ -18,11 +20,14 @@ def get_weather(latitude, longitude):
         print(f"Response Status Code: {response.status_code}")
         print(f"Number of bytes received: {len(response.content)}")
         print(f"Raw Response Content: {response.content}")
+        print()
+        print("Crunching Data . . .")
 
         if not response.content:
             print("Empty response content. Unable to fetch weather data.")
             return None
-
+        time.sleep(3)
+        os.system('clear')
         data = response.json()
 
         # Reverse the order of hourly data
