@@ -1,4 +1,6 @@
- gh repo clone Degamisu/Console-Weather-App && cd Console-Weather-App
+gh auth login
+wait(3)
+gh repo clone Degamisu/Console-Weather-App && cd Console-Weather-App
 type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
 && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -7,5 +9,6 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo 
 && sudo apt install gh -y
 pip install -r requirements.txt
 pyinstaller --onefile main.py
+rm -r build
 cd dist
 ./main

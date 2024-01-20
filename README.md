@@ -24,11 +24,19 @@ This app gets its weather data with:
 
 Making this app very fast and reliable.
 
+## Installation (with source AutoInstall)
+
+To make it easier to build, I created a script that does all the building for you. The file is called [AutoInstall](autoinstall.bash). This makes the build process faster, but there are a few disadvantages
+
+- Deletes the Build process source code (generated automatically)
+- One set path.
+
 ## Installation (with source)
 
 **Notes:**
 - This currently only works on Ubuntu Linux. This may change.
 - Git must be installed. Install it with [this](InstallGit.bash)
+- This is good if you want to _keep_ the build artifacts and mess with a few files.
 
 <details>
 <summary>Download Source Code</summary>
@@ -63,8 +71,7 @@ __This requires `pyinstaller` to build, which is installed under the `Install De
 
 To build, run this into your bash console
 ```bash
-$ pyinstaller --onefile main.py
-$ ./main
+pyinstaller --onefile main.py
 ```
 
 </details>
@@ -77,12 +84,12 @@ This is the easiest way through, skipping the building part. However, it would b
 
 **Python**
 ```bash
-$ python ./main.py
+cd dist && python main.py
 ```
 
 **Python3**
 ```bash
-$ python3 ./main.py
+cd dist && python3 ./main.py
 ```
 
 </details>
@@ -97,7 +104,7 @@ This section is optional.
 To clean up build artifacts (under /build), run this script:
 
 ```bash
-$ rm -r build
+rm -r build
 ```
 </details>
 
