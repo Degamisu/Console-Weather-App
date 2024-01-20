@@ -96,7 +96,11 @@ class ConsoleWeatherApp:
         # Implement layout management logic here if needed
         pass
 
-    def main(self):
+    def main(self, stdscr):
+        self.screen = stdscr
+        curses.curs_set(0)  # Hide the cursor
+        self.get_screen_size()
+
         choice = self.get_user_choice()
 
         if choice == 'auto':
@@ -162,4 +166,4 @@ class ConsoleWeatherApp:
             self.screen.getch()
 
 if __name__ == "__main__":
-    curses.wrapper()
+    curses.wrapper(ConsoleWeatherApp().main)
