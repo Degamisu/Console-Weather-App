@@ -42,16 +42,21 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libncurses5-dev
           pip install -r requirements.txt
+          
+      - name: Get latest release tag
+        id: get_latest_tag
+        run: echo "::set-output name=tag::$(git describe --tags $(git rev-list --tags --max-count=1))"
 
-      - name: Build Executable
-        run: pyinstaller --onefile main.py && mv dist/main dist/CWA_LINUX
+      - name: Increment version
+        id: increment_version
+        run: echo "::set-output name=next_version::$(python -c "version = '${{ steps.get_latest_tag.outputs.tag }}'.split('.'); version[-1] = str(int(version[-1]) + 1); print('.'.join(version))")"
 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release v${{ github.run_number }}
+          tag_name: ${{ steps.increment_version.outputs.next_version }}
+          release_name: Release ${{ steps.increment_version.outputs.next_version }}
           draft: false
           prerelease: false
         env:
@@ -62,7 +67,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/CWA_LINUX
+          asset_path: ./dist/main
           asset_name: Console-Weather-App
           asset_content_type: application/octet-stream
         env:
