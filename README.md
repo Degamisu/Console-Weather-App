@@ -4,6 +4,9 @@
 
 ---
 
+**PROJECT _WILL_ BE HAULTED UNTIL CONTRIBUTIONS RISE**
+
+---
 
 ![Alt text](CWA.png)
 
