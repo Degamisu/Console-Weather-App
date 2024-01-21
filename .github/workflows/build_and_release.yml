@@ -52,10 +52,17 @@ jobs:
           else
             echo "::set-output name=tag::$latest_tag"
           fi
+        continue-on-error: true
 
       - name: Increment version
         id: increment_version
-        run: echo "::set-output name=next_version::$(python -c "version = '${{ steps.get_latest_tag.outputs.tag }}'.split('.'); version[-1] = str(int(version[-1]) + 1); print('.'.join(version))")"
+        run: |
+          if [ -z "${{ steps.get_latest_tag.outputs.tag }}" ]; then
+            echo "::set-output name=next_version::v1.0.3"  # Set a default next version
+          else
+            echo "::set-output name=next_version::$(python -c "version = '${{ steps.get_latest_tag.outputs.tag }}'.split('.'); version[-1] = str(int(version[-1]) + 1); print('.'.join(version))")"
+          fi
+
       
       - name: Build executable
         run: |
