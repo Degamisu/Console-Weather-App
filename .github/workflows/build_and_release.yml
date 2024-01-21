@@ -43,6 +43,9 @@ jobs:
           sudo apt-get install -y libncurses5-dev
           pip install -r requirements.txt
 
+      - name: Build Executable
+        run: pyinstaller --onefile CWA_LINUX
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -59,7 +62,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/main
+          asset_path: ./dist/CWA_LINUX
           asset_name: Console-Weather-App
           asset_content_type: application/octet-stream
         env:
