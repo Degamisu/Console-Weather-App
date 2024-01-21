@@ -68,8 +68,8 @@ jobs:
           git diff --name-only ${{ github.event.before }} ${{ github.sha }}
 
       - name: Ask for description
-        run: |
-          echo "::set-output name=description::${{ inputs.description }}"
+        id: ask_for_description
+        run: echo "::set-output name=description::${{ inputs.description }}"
 
       - name: Build executable
         run: |
@@ -83,7 +83,7 @@ jobs:
           tag_name: ${{ steps.increment_version.outputs.next_version }}
           overwrite: true
           release_name: Release ${{ steps.increment_version.outputs.next_version }}
-          body: ${{ steps.create_release.outputs.description }}
+          body: ${{ steps.ask_for_description.outputs.description }}
           draft: false
           prerelease: false
         env:
