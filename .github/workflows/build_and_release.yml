@@ -71,12 +71,13 @@ jobs:
         uses: actions/create-release@v1
         with:
           tag_name: ${{ steps.increment_version.outputs.next_version }}
-          allowUpdates: "true"
+          overwrite: true
           release_name: Release ${{ steps.increment_version.outputs.next_version }}
           draft: false
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
 
       - name: Upload Release Asset
         id: upload-release-asset
