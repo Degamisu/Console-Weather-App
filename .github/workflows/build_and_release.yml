@@ -56,6 +56,11 @@ jobs:
       - name: Increment version
         id: increment_version
         run: echo "::set-output name=next_version::$(python -c "version = '${{ steps.get_latest_tag.outputs.tag }}'.split('.'); version[-1] = str(int(version[-1]) + 1); print('.'.join(version))")"
+      
+      - name: Build executable
+        run: |
+          pyinstaller --onefile main.py
+          mv ./dist/main ./dist/CWA_Linux
 
       - name: Create Release
         id: create_release
