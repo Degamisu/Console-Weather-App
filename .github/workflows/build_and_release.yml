@@ -44,7 +44,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build Executable
-        run: pyinstaller --onefile CWA_LINUX
+        run: pyinstaller --onefile main.py && mv dist/main dist/CWA_LINUX
 
       - name: Create Release
         id: create_release
