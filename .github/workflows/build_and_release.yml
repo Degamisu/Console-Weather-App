@@ -53,7 +53,7 @@ jobs:
           latest_tag=$(git tag -l | sort -V | tail -n 1)
           echo "::set-output name=tag::${latest_tag:-v1.0.4}"
         continue-on-error: true
-      
+
       - name: Increment version
         id: increment_version
         run: |
