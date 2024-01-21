@@ -23,6 +23,10 @@ on:
         description: 'Environment to run tests against'
         type: environment
         required: true
+      description:
+        description: 'Release description'
+        required: true
+        type: string
 
 jobs:
   build:
@@ -58,9 +62,15 @@ jobs:
           new_version="${version_parts[0]}.${version_parts[1]}.$((version_parts[2]+1))"
           echo "::set-output name=next_version::${new_version}"
 
+      - name: List changed files
+        run: |
+          echo "Changed files:"
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }}
 
+      - name: Ask for description
+        run: |
+          echo "::set-output name=description::${{ inputs.description }}"
 
-      
       - name: Build executable
         run: |
           pyinstaller --onefile main.py
@@ -73,11 +83,11 @@ jobs:
           tag_name: ${{ steps.increment_version.outputs.next_version }}
           overwrite: true
           release_name: Release ${{ steps.increment_version.outputs.next_version }}
+          body: ${{ steps.create_release.outputs.description }}
           draft: false
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -89,7 +99,6 @@ jobs:
           asset_content_type: application/octet-stream
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
 
       - name: Cleanup
         run: rm -r build
