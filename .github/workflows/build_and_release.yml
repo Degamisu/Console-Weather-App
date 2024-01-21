@@ -47,11 +47,12 @@ jobs:
           sudo apt-get install -y libncurses5-dev
           pip install -r requirements.txt
 
+          
       - name: Get latest release tag
         id: get_latest_tag
         run: |
-          latest_tag=$(git tag -l | sort -V | tail -n 1)
-          echo "::set-output name=tag::${latest_tag:-v1.0.4}"
+          latest_tag=$(git describe --tags --abbrev=0)
+          echo "::set-output name=tag::$latest_tag"
         continue-on-error: true
 
       - name: Increment version
