@@ -47,24 +47,17 @@ jobs:
         id: get_latest_tag
         run: |
           latest_tag=$(git tag -l | sort -V | tail -n 1)
-          if [ -z "$latest_tag" ]; then
-            echo "v1.0.2"  # Set a default tag if no tags are found
-          else
-            echo "$latest_tag"
-          fi
+          echo "::set-output name=tag::${latest_tag:-v1.0.2}"
         continue-on-error: true
-        env:
-          OUTPUT_TAG: ${{ steps.get_latest_tag.outputs.tag }}
-      
       
       - name: Increment version
         id: increment_version
         run: |
-          if [ -z "${{ env.OUTPUT_TAG }}" ]; then
-            echo "::set-output name=next_version::v1.0.3"  # Set a default next version
-          else
-            echo "::set-output name=next_version::$(python -c "version = '${{ env.OUTPUT_TAG }}'.split('.'); version[-1] = str(int(version[-1]) + 1); print('.'.join(version))")"
-          fi
+          current_tag=${{ steps.get_latest_tag.outputs.tag }}
+          version_parts=(${current_tag//./ })
+          new_version="${version_parts[0]}.${version_parts[1]}.$((version_parts[2]+1))"
+          echo "::set-output name=next_version::${new_version}"
+
 
 
       
