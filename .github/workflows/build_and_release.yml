@@ -76,15 +76,13 @@ jobs:
         run: |
           pyinstaller --onefile main.py
           mv ./dist/main ./dist/CWA_Linux
-
+      
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
           tag_name: ${{ steps.increment_version.outputs.next_version }}
-          overwrite: true
           release_name: Release ${{ steps.increment_version.outputs.next_version }}
-          body: ${{ steps.ask_for_description.outputs.description }}
           draft: false
           prerelease: false
         env:
