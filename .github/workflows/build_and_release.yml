@@ -50,18 +50,11 @@ jobs:
       - name: Get latest release tag
         id: get_latest_tag
         run: |
-          latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null)
-          if [ -z "$latest_tag" ]; then
-            echo "First attempt failed. Trying again..."
-            latest_tag=$(git describe --tags 2>/dev/null)
-          fi
-          if [ -z "$latest_tag" ]; then
-            echo "Unable to retrieve the latest tag. Setting default tag v1.0.1."
-            latest_tag="v1.0.1"
-          fi
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.5")
           echo "Latest tag: $latest_tag"
           echo "::set-output name=tag::$latest_tag"
         shell: bash
+
 
       
       - name: Increment version
