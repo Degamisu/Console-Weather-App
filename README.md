@@ -1,6 +1,7 @@
 # Console Weather App |  [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Get%20over%20170%20free%20design%20blocks%20based%20on%20Bootstrap%204&url=https://www.froala.com/design-blocks&via=froala&hashtags=bootstrap,design,templates,blocks,developers)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/Degamisu/Console-Weather-App) ![GitHub commits since latest release](https://img.shields.io/github/commits-since/Degamisu/Console-Weather-App/latest)
- ![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/Degamisu/Console-Weather-App) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Degamisu/Console-Weather-App/total) [![Build and Release](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml/badge.svg?branch=master)](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml)
+ ![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/Degamisu/Console-Weather-App) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Degamisu/Console-Weather-App/total) [![Build and Release](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml/badge.svg?branch=master)](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml) ![GitHub closed issues](https://img.shields.io/github/issues-closed/Degamisu/console-weather-app)
+
 
 ---
 
