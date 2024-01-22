@@ -50,13 +50,14 @@ jobs:
       - name: Get latest release tag
         id: get_latest_tag
         run: |
-          latest_tag=$(git describe --tags --abbrev=0)
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null)
           if [ -z "$latest_tag" ]; then
             echo "::set-output name=tag::v1.0.1"  # Set a default tag if no tags are found
           else
             echo "::set-output name=tag::$latest_tag"
           fi
         continue-on-error: true
+
 
       - name: Increment version
         id: increment_version
