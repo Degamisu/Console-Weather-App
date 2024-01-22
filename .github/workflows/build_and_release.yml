@@ -46,18 +46,23 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libncurses5-dev
           pip install -r requirements.txt
-
+          
       - name: Get latest release tag
         id: get_latest_tag
         run: |
-          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null)
+          latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null)
           if [ -z "$latest_tag" ]; then
             echo "First attempt failed. Trying again..."
-            latest_tag=$(git describe --tags --abbrev=0)
+            latest_tag=$(git describe --tags 2>/dev/null)
+          fi
+          if [ -z "$latest_tag" ]; then
+            echo "Unable to retrieve the latest tag. Setting default tag v1.0.1."
+            latest_tag="v1.0.1"
           fi
           echo "Latest tag: $latest_tag"
           echo "::set-output name=tag::$latest_tag"
         continue-on-error: true
+
 
 
 
