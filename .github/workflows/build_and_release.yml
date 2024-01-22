@@ -61,13 +61,9 @@ jobs:
           fi
           echo "Latest tag: $latest_tag"
           echo "::set-output name=tag::$latest_tag"
-        continue-on-error: true
+        shell: bash
 
-
-
-
-
-
+      
       - name: Increment version
         id: increment_version
         run: |
@@ -75,6 +71,8 @@ jobs:
           version_parts=(${current_tag//./ })
           new_version="${version_parts[0]}.${version_parts[1]}.$((version_parts[2]+1))"
           echo "::set-output name=next_version::${new_version}"
+
+
 
       - name: List changed files
         run: |
