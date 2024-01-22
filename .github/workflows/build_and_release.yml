@@ -50,9 +50,14 @@ jobs:
       - name: Get latest release tag
         id: get_latest_tag
         run: |
-          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.1")
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null)
+          if [ -z "$latest_tag" ]; then
+            latest_tag=$(git describe --tags --abbrev=0)
+            echo "::Found Latest ::$latest_tag"
+          fi
           echo "::set-output name=tag::$latest_tag"
         continue-on-error: true
+
 
 
 
