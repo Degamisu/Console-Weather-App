@@ -15,6 +15,19 @@
 
 This app is a console based weather app. You can choose between 2 options for location. You can **Specify** the location, or you can automatically find the location based off of **GPS tracking**. This is a very fast and reliable service that is being updated frequently.
 
+## Important Information
+
+This app contains a `secret` code in order to properly function. In some parts of the code, a variable named `{GH_TOKEN}` is created. However, if you use Codespaces, you will need to provide your own `secret` code in order for the scripts to work. (eg, [build_and_release.yml - Github Actions](build_and_release.yml))
+
+---
+
+There is a wiki! you can find this at the `wiki` tab. The tab includes:
+
+- Directory Graph
+- Error Codes
+- Information
+- Dependencies
+
 ## Security
 
 Some people get a little worried when they hear "Tracking." This app does not take personal information/location and uploads it anywhere. Your location is contained in the console and only used to gather weather data. Your location is broad, therefore there will be no worries about leaked locations. If this is forked and not committed to the official repository, it may not be safe. Check the repositories code to see if it is safe.
@@ -119,5 +132,7 @@ rm -r build
 Have an idea for CWA? Contributing will be open soon. For now, you can open issues!
 
 ---
+
+**Is this readme missing something? If so, shoot a pull request! I will review it ASAP!**
 
 © 2024 Degamisu | All Rights Reserved | [README](README.md) Created by **Emi Yamashita**
