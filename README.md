@@ -18,6 +18,7 @@ The Legacy version of CWA is available [here](https://github.com/Degamisu/Consol
 - Normal integrated `print()` functions
 - Accurate weather statements
 - There is **no** city select. You will get an error: `City Select is not implemented yet, CWA will now quit`
+- There is **no** [autoinstall](autoinstall.bash). You will have to build/run this _manually_
 
 ---
 
