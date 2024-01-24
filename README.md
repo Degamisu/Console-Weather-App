@@ -8,7 +8,7 @@
 
 ## About
 
-This app is a console based weather app. You can choose between 2 options for location. You can **Specify** the location, or you can automatically find the location based off of **GPS tracking**. This is a very fast and reliable service that is being updated frequently.
+This app is a console-based weather app. You can choose between 2 options for location. You can **Specify** the location, or you can automatically find the location based off of **GPS tracking**. This is a very fast and reliable service that is being updated frequently.
 
 ## Important Information
 
@@ -22,11 +22,11 @@ The Legacy version of CWA is available [here](https://github.com/Degamisu/Consol
 
 ---
 
-This app contains a `secret` code in order to properly function. In some parts of the code, a variable named `{GH_TOKEN}` is created. However, if you use Codespaces, you will need to provide your own `secret` code in order for the scripts to work. (eg, [build_and_release.yml - Github Actions](build_and_release.yml))
+This app contains a `secret` code to function properly. In some parts of the code, a variable named `{GH_TOKEN}` is created. However, if you use Codespaces, you must provide your own `secret` code for the scripts to work. (eg, [build_and_release.yml - Github Actions](build_and_release.yml))
 
 ---
 
-There is a wiki! you can find this at the `wiki` tab. The tab includes:
+There is a wiki! you can find this in the `wiki` tab. The tab includes:
 
 - Directory Graph
 - Error Codes
@@ -44,6 +44,8 @@ Privacy is a top concern for users, especially when it comes to applications tha
 - **Broad Location Data:** The app only accesses broad location information, ensuring that no specific details are leaked.
 
 It's important to note that the safety of the app depends on its usage and commitment to the official repository. If you ever fork the project, please review the code to ensure its safety.
+
+Still unsure? You may check the code for yourself. Any comments and concerns can be in the `Discussions` tab or `Issues` tab. Any vulnerabilities that arise may go into the `Issues` tab. 
 
 
 ## Sources
