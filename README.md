@@ -2,11 +2,6 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/Degamisu/Console-Weather-App) ![GitHub commits since latest release](https://img.shields.io/github/commits-since/Degamisu/Console-Weather-App/latest)
  ![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/Degamisu/Console-Weather-App) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Degamisu/Console-Weather-App/total) [![Build and Release](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml/badge.svg?branch=master)](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml) ![GitHub closed issues](https://img.shields.io/github/issues-closed/Degamisu/console-weather-app)
 
-
----
-
-**PROJECT _WILL_ BE HAULTED UNTIL CONTRIBUTIONS RISE**
-
 ---
 
 ![Alt text](CWA.png)
@@ -16,6 +11,15 @@
 This app is a console based weather app. You can choose between 2 options for location. You can **Specify** the location, or you can automatically find the location based off of **GPS tracking**. This is a very fast and reliable service that is being updated frequently.
 
 ## Important Information
+
+The Legacy version of CWA is available [here](https://github.com/Degamisu/Console-Weather-App/tree/b6d01375763cd0d073334d68de05902801dd546b). It has the following:
+
+- Stable application
+- Normal integrated `print()` functions
+- Accurate weather statements
+- There is **no** city select. You will get an error: `City Select is not implemented yet, CWA will now quit`
+
+---
 
 This app contains a `secret` code in order to properly function. In some parts of the code, a variable named `{GH_TOKEN}` is created. However, if you use Codespaces, you will need to provide your own `secret` code in order for the scripts to work. (eg, [build_and_release.yml - Github Actions](build_and_release.yml))
 
