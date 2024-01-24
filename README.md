@@ -35,7 +35,16 @@ There is a wiki! you can find this at the `wiki` tab. The tab includes:
 
 ## Security
 
-Some people get a little worried when they hear "Tracking." This app does not take personal information/location and uploads it anywhere. Your location is contained in the console and only used to gather weather data. Your location is broad, therefore there will be no worries about leaked locations. If this is forked and not committed to the official repository, it may not be safe. Check the repositories code to see if it is safe.
+Privacy is a top concern for users, especially when it comes to applications that involve location tracking. Rest assured, the Console Weather App prioritizes user privacy and follows these principles:
+
+- **No Personal Information Collection:** The app does not collect any personal information or location data beyond what is necessary for gathering weather information.
+
+- **Local Console Usage:** Your location is used solely within the console environment to fetch real-time weather data. It is not transmitted or stored externally.
+
+- **Broad Location Data:** The app only accesses broad location information, ensuring that no specific details are leaked.
+
+It's important to note that the safety of the app depends on its usage and commitment to the official repository. If you ever fork the project, please review the code to ensure its safety.
+
 
 ## Sources
 
