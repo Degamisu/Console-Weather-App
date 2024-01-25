@@ -197,7 +197,17 @@ class ConsoleWeatherApp:
                 self.screen.getch()
                 return
 
-            
+    def get_current_location_coordinates(self):
+        location = geocoder.ip("me")
+        if location and location.latlng:
+            return tuple(location.latlng)
+        else:
+            self.center_text("Unable to determine current location.", 30)
+            self.center_text("Error: 0x0002", 31)
+            self.center_text("CWA will now quit", 32)
+            self.screen.refresh()
+            self.screen.getch()
+            exit()
 
             if weather_data:
                 weather_data = get_weather(latitude, longitude)
