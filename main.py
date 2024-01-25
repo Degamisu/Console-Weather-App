@@ -1,5 +1,3 @@
-# main_curses_resizable.py
-
 import curses
 from io import SEEK_SET
 from api_handler import get_weather
@@ -44,11 +42,13 @@ class ConsoleWeatherApp:
     def get_user_choice(self):
         self.screen.clear()
         self.center_text("Welcome to Console Weather App", 2)
-        self.center_text("© Degamisu 2024 | All Rights Reserved | Emi Yamashita", 3)
-        self.center_text("Choose an option:", 5)
-        self.center_text("1. Automatic GPS Location", 6)
-        self.center_text("2. City Select", 7)
-        self.center_text("3. Important Information", 8)
+        self.center_text("=======================================", 4)
+        self.center_text("|Choose an option:                    |", 5)
+        self.center_text("|1. Automatic GPS Location            |", 6)
+        self.center_text("|2. City Select                       |", 7)
+        self.center_text("|3. Important Information             |", 8)
+        self.center_text("=======================================", 9)
+        self.center_text("© Degamisu 2024 | All Rights Reserved", 11)
 
         while True:
             choice = self.screen.getch()
@@ -195,62 +195,73 @@ class ConsoleWeatherApp:
                 self.center_text("Invalid choice. Exiting program.", 30)
                 self.screen.refresh()
                 self.screen.getch()
-                return
+                return None
+    def get_current_location_coordinates(self):
+        location = geocoder.ip("me")
+        latitude, longitude = None, None
+
+        if location and location.latlng:
+            latitude, longitude = tuple(location.latlng)
+        elif not location and location.latlng:
+            self.center_text("Unable to determine current location.", 30)
+            self.center_text("Error: 0x0002", 31)
+            self.center_text("CWA will now quit", 32)
+            self.screen.refresh()
+            self.screen.getch()
 
     def get_current_location_coordinates(self):
         location = geocoder.ip("me")
+        latitude, longitude = None, None
+
         if location and location.latlng:
-            return tuple(location.latlng)
+            latitude, longitude = tuple(location.latlng)
+            weather_data = get_weather(latitude, longitude)
+
+            # Display the current weather data
+            self.center_text("Current Weather:", 17)
+            self.center_text(f"Time: {weather_data['current']['time']}", 18)
+            self.center_text(f"Temperature at 2m: {weather_data['current']['temperature_2m']}°C", 19)
+            self.center_text(f"Wind Speed at 10m: {weather_data['current']['wind_speed_10m']} m/s", 20)
+
+            # Display hourly weather data for the last hour
+            self.center_text("Weather in the Last Hour:", 22)
+            self.display_hourly_weather(
+                weather_data['hourly']['time'][:1],
+                weather_data['hourly']['temperature_2m'][:1],
+                weather_data['hourly']['relative_humidity_2m'][:1],
+                weather_data['hourly']['wind_speed_10m'][:1]
+            )
+
+            self.center_text("Continue to display more Weather Data? | y/n:", 30)
+            inp = self.screen.getch()
+
+            if inp == ord('y'):
+                self.center_text("Fetching more weather data...", 32)
+                self.screen.refresh()
+                # Implement logic for fetching more weather data if needed
+                # For now, let's assume there's more data to display
+                self.display_hourly_weather(
+                    weather_data['hourly']['time'],
+                    weather_data['hourly']['temperature_2m'],
+                    weather_data['hourly']['relative_humidity_2m'],
+                    weather_data['hourly']['wind_speed_10m']
+                )
+
+            # Display weather using the display_weather function
+            self.display_weather_data(weather_data)
+
+            self.center_text(f"Exiting process {pid}", 34)
+            self.screen.refresh()
+            self.screen.getch()
         else:
             self.center_text("Unable to determine current location.", 30)
             self.center_text("Error: 0x0002", 31)
             self.center_text("CWA will now quit", 32)
             self.screen.refresh()
             self.screen.getch()
-            exit()
+            return None
 
-            if weather_data:
-                weather_data = get_weather(latitude, longitude)
-                # Display the current weather data
-                self.center_text("Current Weather:", 17)
-                self.center_text(f"Time: {weather_data['current']['time']}", 18)
-                self.center_text(f"Temperature at 2m: {weather_data['current']['temperature_2m']}°C", 19)
-                self.center_text(f"Wind Speed at 10m: {weather_data['current']['wind_speed_10m']} m/s", 20)
-
-                # Display hourly weather data for the last hour
-                self.center_text("Weather in the Last Hour:", 22)
-                self.display_hourly_weather(
-                    weather_data['hourly']['time'][:1],
-                    weather_data['hourly']['temperature_2m'][:1],
-                    weather_data['hourly']['relative_humidity_2m'][:1],
-                    weather_data['hourly']['wind_speed_10m'][:1]
-                )
-
-                self.center_text("Continue to display more Weather Data? | y/n:", 30)
-                inp = self.screen.getch()
-
-                if inp == ord('y'):
-                    self.center_text("Fetching more weather data...", 32)
-                    self.screen.refresh()
-                    # Implement logic for fetching more weather data if needed
-                    # For now, let's assume there's more data to display
-                    self.display_hourly_weather(
-                        weather_data['hourly']['time'],
-                        weather_data['hourly']['temperature_2m'],
-                        weather_data['hourly']['relative_humidity_2m'],
-                        weather_data['hourly']['wind_speed_10m']
-                    )
-
-                # Display weather using the display_weather function
-                self.display_weather_data(weather_data)
-
-                self.center_text(f"Exiting process {pid}", 34)
-                self.screen.refresh()
-                self.screen.getch()
-            else:
-                self.center_text("Unable to fetch weather data.", 30)
-                self.screen.refresh()
-                self.screen.getch()
+        
 
 if __name__ == "__main__":
     curses.wrapper(ConsoleWeatherApp().main)
