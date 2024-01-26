@@ -2,7 +2,13 @@
 
 import curses
 
-def display_weather(weather_data):
+def display_weather(stdscr, weather_data):
+    # Check if the necessary keys exist in the weather_data dictionary
+    if 'name' in weather_data and 'sys' in weather_data and 'country' in weather_data['sys']:
+        city_name = weather_data['name']
+        country_code = weather_data['sys']['country']
+        stdscr.addstr(2, 2, f"Weather in {city_name}, {country_code}:")
+    
     if weather_data:
         stdscr = curses.initscr()
         curses.start_color()
@@ -17,4 +23,4 @@ def display_weather(weather_data):
         stdscr.getch()
         curses.endwin()
     else:
-        print("Unable to fetch weather data.")
+        stdscr.addstr(2, 2, "Weather data is incomplete. Unable to display.")

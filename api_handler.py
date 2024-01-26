@@ -29,12 +29,13 @@ def get_weather(latitude, longitude):
         time.sleep(3)
         os.system('clear')
         data = response.json()
+        
 
-        # Reverse the order of hourly data
-        data['hourly']['time'] = list(reversed(data['hourly']['time']))
-        data['hourly']['temperature_2m'] = list(reversed(data['hourly']['temperature_2m']))
-        data['hourly']['relative_humidity_2m'] = list(reversed(data['hourly']['relative_humidity_2m']))
-        data['hourly']['wind_speed_10m'] = list(reversed(data['hourly']['wind_speed_10m']))
+        # hourly data
+        data['hourly']['time'] = list((data['hourly']['time']))
+        data['hourly']['temperature_2m'] = list((data['hourly']['temperature_2m']))
+        data['hourly']['relative_humidity_2m'] = list((data['hourly']['relative_humidity_2m']))
+        data['hourly']['wind_speed_10m'] = list((data['hourly']['wind_speed_10m']))
 
         return data
 
