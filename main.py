@@ -300,40 +300,29 @@ class ConsoleWeatherApp:
         max_rows, _ = self.screen.getmaxyx()
         rows_to_display = min(max_rows - 18, len(times) * 5)
 
-        self.screen.addstr(16, (self.width - len("Weather in the Last Hour:")) // 2, "Weather in the Last Hour:")
+        try:
+            # Display information for a specific index (e.g., index 0)
+            i = 18
+            time_data = (times[0], temperatures[0], relative_humidity[0], wind_speeds[0])
 
-        for i, time_data in enumerate(zip(times, temperatures, relative_humidity, wind_speeds), start=18):
-            if i + 4 > 18 + rows_to_display:
-                break
+            self.center_text(f"Time: {time_data[0]}", i)
+            self.center_text(f"Temperature at 2m: {time_data[1]}°C", i + 1)
+            self.center_text(f"Relative Humidity at 2m: {time_data[2]}%", i + 2)
+            self.center_text(f"Wind Speed at 10m: {time_data[3]} m/s", i + 3)
+            self.center_text("---", i + 4)
 
-            try:
-                # Ensure 'time_data[0]' is a string
-                time_str = str(time_data[0])
+            self.screen.refresh()
 
-                self.screen.addstr(i, 2, f"Time: {time_str}")
-                self.screen.addstr(i + 1, 2, f"Temperature: {time_data[1]}°C")
-                self.screen.addstr(i + 2, 2, f"Relative Humidity: {time_data[2]}%")
-                self.screen.addstr(i + 3, 2, f"Wind Speed: {time_data[3]} m/s")
+            # Wait for user input before returning to the main menu
+            self.screen.getch()
 
-                # Try adding '---', handle the error if it occurs
-                try:
-                    self.screen.addstr(i + 4, 2, "---")
-                except curses.error as e:
-                    # Print the exception details for debugging
-                    print(f"Error adding '---': {e}")
-                    print(f"Problematic data: {time_data}")
-                    continue  # Skip to the next iteration in case of an error
-            except Exception as e:
-                # Print the exception details for debugging
-                print(f"Error in display_hourly_weather: {e}")
-                print(f"Problematic data: {time_data}")
-                continue  # Skip to the next iteration in case of an error
-
-        self.screen.refresh()  # Refresh the main screen after making changes
-
-
-
-
+        except curses.error as e:
+            # Handle the exception (you can print an error message or take other actions)
+            print(f"Error in display_hourly_weather: {e}")
+            self.screen.clear()
+            self.center_text("Error occurred while displaying weather data. Please try again.", 10)
+            self.screen.refresh()
+            self.screen.getch()  # Wait for user input before returning to the main menu
 
 
     def get_current_location_coordinates(self):
