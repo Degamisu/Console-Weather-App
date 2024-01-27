@@ -18,6 +18,10 @@ gh repo clone Degamisu/Console-Weather-App && cd Console-Weather-App
 pip install -r requirements.txt
 pyinstaller --onefile main.py
 
+# build
+
+pyinstaller --onefile main.py
+
 # Cleanup
 
 rm -r build

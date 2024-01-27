@@ -1,26 +1,15 @@
 import curses
-from io import SEEK_SET
-from api_handler import get_weather
-import geocoder
 import os
+import shutil
+import subprocess
 import time
 import csv
-
-# Import the display_weather function from display_handler
+import geocoder
+from api_handler import get_weather
 from display_handler import display_weather
 
 # Setup process ID variable
 pid = os.getpid()
-import curses
-from io import SEEK_SET
-from api_handler import get_weather
-import geocoder
-import os
-import time
-import csv
-
-# Import the display_weather function from display_handler
-from display_handler import display_weather
 
 # Import the Window class
 class Window:
@@ -243,6 +232,20 @@ class ConsoleWeatherApp:
             pass
 
     def main(self, stdscr):
+        # Add the following code for downloading cities.csv
+        repo_url = "https://github.com/Degamisu/Console-Weather-App.git"
+        repo_dir = "Console-Weather-App"
+        executable_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Clone the repository
+        subprocess.run(["git", "clone", repo_url, repo_dir])
+
+        # Move cities.csv to the executable directory
+        shutil.move(os.path.join(repo_dir, "cities.csv"), os.path.join(executable_dir, "cities.csv"))
+
+        # Cleanup: Remove the cloned repository
+        shutil.rmtree(repo_dir)
+
         self.screen = stdscr
         self.window = Window(curses.LINES - 1, curses.COLS - 1)  # Instantiate the Window class
         curses.curs_set(0)  # Hide the cursor
