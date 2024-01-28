@@ -149,6 +149,18 @@ Have an idea for CWA? Contributing will be open soon. For now, you can open issu
 
 ---
 
+## Additions
+
+| Filename | Added             |
+| ------- | ------------------ |
+| SECURITY.md | ✔️ |
+| CONTRIBUTING.md  | :x:                |
+| README.md | ✔️|
+| LICENCE.md | ✔️ |
+| CODE_OF_CONDUCT.md | ✔️ |
+
+---
+
 **Is this readme missing something? If so, shoot a pull request! I will review it ASAP!**
 
 © 2024 Degamisu | All Rights Reserved | [README](README.md) Created by **Emi Yamashita**
