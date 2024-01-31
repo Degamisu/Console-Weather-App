@@ -5,7 +5,7 @@
 ---
 <div>
 <p align="center">
-  <img src="/CWA-2-transparent.png"/>
+  <img src="/CWA-2-transparent-small.png"/>
 </p>
 </div>
 
