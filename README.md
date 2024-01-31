@@ -5,7 +5,7 @@
 ---
 <div>
 <p align="center">
-  <img src="https://github.com/Degamisu/Console-Weather-App/CWA-2-transparent.png"/>
+  <img src="/CWA-2-transparent.png"/>
 </p>
 </div>
 
