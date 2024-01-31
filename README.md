@@ -5,9 +5,11 @@
 ---
 <div>
 <p align="center">
-  <img src="/CWA-2-transparent-small.png"/>
+  <img src="/CWA-2-transparent.png"/>
 </p>
 </div>
+
+> Console Weather Logo subject to copyright. © Degamisu, Emi Yamashita.
 
 ## About
 
