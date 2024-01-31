@@ -3,8 +3,11 @@
  ![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/Degamisu/Console-Weather-App) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Degamisu/Console-Weather-App/total) [![Build and Release](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml/badge.svg?branch=master)](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml) ![GitHub closed issues](https://img.shields.io/github/issues-closed/Degamisu/console-weather-app)
 
 ---
-
-![Alt text](CWA.png)
+<div>
+<p align="center">
+  <img src="/CWA-2-transparent-small.png"/>
+</p>
+</div>
 
 ## About
 
