@@ -202,9 +202,14 @@ class ConsoleWeatherApp:
             self.screen.refresh()
             self.screen.getch()
 
-    def display_hourly_weather(self, times, temperatures, relative_humidity, wind_speeds):
+    def display_hourly_weather(self, weather_data):
         max_rows, _ = self.screen.getmaxyx()
-        rows_to_display = min(max_rows - 18, len(times) * 5)
+        rows_to_display = min(max_rows - 18, len(weather_data['hourly']['time']) * 5)
+
+        times = list(reversed(weather_data['hourly']['time']))
+        temperatures = list(reversed(weather_data['hourly']['temperature_2m']))
+        relative_humidity = list(reversed(weather_data['hourly']['relative_humidity_2m']))
+        wind_speeds = list(reversed(weather_data['hourly']['wind_speed_10m']))
 
         self.center_text("Weather in the Last Hour:", 16)
 
