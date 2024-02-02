@@ -40,6 +40,9 @@ There is a wiki! you can find this in the `wiki` tab. The tab includes:
 
 ## Security
 
+> [!NOTE]
+> For more details in security, go to [SECURITY](SECURITY.md)
+
 Privacy is a top concern for users, especially when it comes to applications that involve location tracking. Rest assured, the Console Weather App prioritizes user privacy and follows these principles:
 
 - **No Personal Information Collection:** The app does not collect any personal information or location data beyond what is necessary for gathering weather information.
