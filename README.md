@@ -2,10 +2,7 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/Degamisu/Console-Weather-App) ![GitHub commits since latest release](https://img.shields.io/github/commits-since/Degamisu/Console-Weather-App/latest)
  ![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/Degamisu/Console-Weather-App) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Degamisu/Console-Weather-App/total) [![Build and Release](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml/badge.svg?branch=master)](https://github.com/Degamisu/Console-Weather-App/actions/workflows/build_and_release.yml) ![GitHub closed issues](https://img.shields.io/github/issues-closed/Degamisu/console-weather-app)  [![HitCount](https://hits.dwyl.com/Degamisu/console-weather-
  app.svg?style=flat-square)](http://hits.dwyl.com/Degamisu/console-weather-app)
- 
- ## Live Visitor Count
- 
- ![Visitor Count](https://profile-counter.glitch.me/{degamisu}/count.svg)
+
 
 ---
 <div>
