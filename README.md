@@ -4,7 +4,7 @@
 
 ## Live Viewers
 
-![GitHub watchers](https://img.shields.io/github/watchers/degamisu/console-weather-app)
+![Viewers](https://img.shields.io/github/watchers/degamisu/console-weather-app)
 
 ---
 <div>
