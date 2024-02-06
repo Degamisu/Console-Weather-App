@@ -79,10 +79,10 @@ To make it easier to build, I created a script that does all the building for yo
 
 ## Installation (with source)
 
-**Notes:**
-- This currently only works on Ubuntu Linux. This may change.
-- Git must be installed. Install it with [this](InstallGit.bash)
-- This is good if you want to _keep_ the build artifacts and mess with a few files.
+> [!NOTE]
+> - This currently only works on Ubuntu Linux. This may change.
+> - Git must be installed. Install it with [this](InstallGit.bash)
+> - This is good if you want to _keep_ the build artifacts and mess with a few files.
 
 <details>
 <summary>Download Source Code</summary>
